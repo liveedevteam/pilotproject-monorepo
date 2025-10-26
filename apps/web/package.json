@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@repo/api": "workspace:*",
@@ -18,8 +19,7 @@
     "next": "16.0.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "superjson": "^2.2.3",
-    "trpc-client-devtools-link": "^0.1.1"
+    "superjson": "^2.2.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

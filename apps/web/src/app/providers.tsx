@@ -13,8 +13,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
       new QueryClient({
         defaultOptions: {
           queries: {
-            // Enable debugging in development
             retry: process.env.NODE_ENV === "development" ? false : 3,
+            staleTime: 1000 * 60 * 5, // 5 minutes
           },
         },
       })
@@ -29,6 +29,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
                 enabled: opts =>
                   process.env.NODE_ENV === "development" ||
                   (opts.direction === "down" && opts.result instanceof Error),
+                colorMode: "ansi",
               }),
             ]
           : []),

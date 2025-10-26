@@ -58,9 +58,6 @@ importers:
       superjson:
         specifier: ^2.2.3
         version: 2.2.3
-      trpc-client-devtools-link:
-        specifier: ^0.1.1
-        version: 0.1.1(@trpc/client@11.6.0(@trpc/server@11.6.0(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.6.0(typescript@5.9.3))
     devDependencies:
       "@tailwindcss/postcss":
         specifier: ^4
@@ -2182,13 +2179,6 @@ packages:
         integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==,
       }
 
-  copy-anything@3.0.5:
-    resolution:
-      {
-        integrity: sha512-yCEafptTtb4bk7GLEQoM8KVJpxAfdBJYaXyzQEgQQQgYrZiDp8SJmGKlYza6CYjEDNstAdNdKA3UuoULlEbS6w==,
-      }
-    engines: { node: ">=12.13" }
-
   copy-anything@4.0.5:
     resolution:
       {
@@ -3332,13 +3322,6 @@ packages:
       }
     engines: { node: ">= 0.4" }
 
-  is-what@4.1.16:
-    resolution:
-      {
-        integrity: sha512-ZhMwEosbFJkA0YhFnNDgTM4ZxDRsS6HqTo7qsZM08fehyRYIYa0yHu5R6mgo1n/8MgaPBXiPimPD77baVFYg+A==,
-      }
-    engines: { node: ">=12.13" }
-
   is-what@5.5.0:
     resolution:
       {
@@ -4443,13 +4426,6 @@ packages:
       babel-plugin-macros:
         optional: true
 
-  superjson@1.13.3:
-    resolution:
-      {
-        integrity: sha512-mJiVjfd2vokfDxsQPOwJ/PtanO87LhpYY88ubI5dUB1Ab58Txbyje3+jpm+/83R/fevaq/107NNhtYBLuoTrFg==,
-      }
-    engines: { node: ">=10" }
-
   superjson@2.2.3:
     resolution:
       {
@@ -4522,15 +4498,6 @@ packages:
         integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==,
       }
     engines: { node: ">=8.0" }
-
-  trpc-client-devtools-link@0.1.1:
-    resolution:
-      {
-        integrity: sha512-/KXczcvdbd0TVjj4Tm3irFi3hyxYwUtJ038v0rN9taxmFkkTO2nHnu/aKXBLFUopxmFuHQuIzBN7Nse3eWVT1w==,
-      }
-    peerDependencies:
-      "@trpc/client": ^9.27.2
-      "@trpc/server": ^9.27.2
 
   ts-api-utils@2.1.0:
     resolution:
@@ -5949,10 +5916,6 @@ snapshots:
 
   convert-source-map@2.0.0: {}
 
-  copy-anything@3.0.5:
-    dependencies:
-      is-what: 4.1.16
-
   copy-anything@4.0.5:
     dependencies:
       is-what: 5.5.0
@@ -6766,8 +6729,6 @@ snapshots:
       call-bound: 1.0.4
       get-intrinsic: 1.3.0
 
-  is-what@4.1.16: {}
-
   is-what@5.5.0: {}
 
   isarray@2.0.5: {}
@@ -7430,10 +7391,6 @@ snapshots:
     optionalDependencies:
       "@babel/core": 7.28.5
 
-  superjson@1.13.3:
-    dependencies:
-      copy-anything: 3.0.5
-
   superjson@2.2.3:
     dependencies:
       copy-anything: 4.0.5
@@ -7464,12 +7421,6 @@ snapshots:
   to-regex-range@5.0.1:
     dependencies:
       is-number: 7.0.0
-
-  trpc-client-devtools-link@0.1.1(@trpc/client@11.6.0(@trpc/server@11.6.0(typescript@5.9.3))(typescript@5.9.3))(@trpc/server@11.6.0(typescript@5.9.3)):
-    dependencies:
-      "@trpc/client": 11.6.0(@trpc/server@11.6.0(typescript@5.9.3))(typescript@5.9.3)
-      "@trpc/server": 11.6.0(typescript@5.9.3)
-      superjson: 1.13.3
 
   ts-api-utils@2.1.0(typescript@5.9.3):
     dependencies:

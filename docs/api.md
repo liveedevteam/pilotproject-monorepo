@@ -153,14 +153,17 @@ export default async function UsersPage() {
 ```typescript
 // app/api/trpc/[trpc]/route.ts
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
-import { appRouter } from "@repo/api";
+import { appRouter, createTRPCContext } from "@repo/api";
 
 const handler = (req: Request) =>
   fetchRequestHandler({
     endpoint: "/api/trpc",
     req,
     router: appRouter,
-    createContext: () => ({}),
+    createContext: () =>
+      createTRPCContext({
+        headers: req.headers,
+      }),
   });
 
 export { handler as GET, handler as POST };

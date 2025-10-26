@@ -146,6 +146,9 @@ pnpm start
 
 # Run linting
 pnpm lint
+
+# Run TypeScript type checking
+pnpm type-check
 ```
 
 ### From Root Directory

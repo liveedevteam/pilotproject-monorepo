@@ -72,6 +72,9 @@ pnpm start
 
 # Run ESLint
 pnpm lint
+
+# Run TypeScript type checking
+pnpm type-check
 ```
 
 ## Package Development

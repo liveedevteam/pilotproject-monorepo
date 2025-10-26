@@ -1,6 +1,7 @@
 {
   "name": "@repo/config",
   "version": "0.0.0",
+  "description": "Shared TypeScript configuration",
   "private": true,
   "main": "index.js"
 }

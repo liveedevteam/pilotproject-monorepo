@@ -1,0 +1,42 @@
+{
+  "name": "mono-repo",
+  "version": "1.0.0",
+  "description": "A full-stack TypeScript monorepo with Next.js, tRPC, and Drizzle ORM",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "setup:project": "node scripts/setup-docker-project.js",
+    "supabase:start": "cd supabase && supabase start",
+    "supabase:stop": "cd supabase && supabase stop",
+    "supabase:restart": "cd supabase && supabase stop && supabase start",
+    "supabase:reset": "cd supabase && supabase db reset",
+    "supabase:status": "cd supabase && supabase status",
+    "db:push": "turbo run db:push",
+    "db:generate": "turbo run db:generate",
+    "db:migrate": "turbo run db:migrate",
+    "db:studio": "turbo run db:studio",
+    "prepare": "husky",
+    "commitlint": "commitlint --from HEAD~1 --to HEAD --verbose"
+  },
+  "keywords": [
+    "monorepo",
+    "next.js",
+    "trpc",
+    "drizzle",
+    "typescript",
+    "tailwind"
+  ],
+  "author": "moharadev",
+  "license": "ISC",
+  "packageManager": "pnpm@10.17.0",
+  "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.6",
+    "prettier": "^3.6.2",
+    "turbo": "^2.5.8"
+  }
+}

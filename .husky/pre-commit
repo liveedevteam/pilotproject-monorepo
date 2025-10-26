@@ -1,0 +1,13 @@
+echo "🔍 Running pre-commit checks..."
+
+# Run prettier on staged files
+pnpm lint-staged
+
+# Run linting and build check
+echo "🧹 Running linting..."
+pnpm lint
+
+echo "🏗️  Running build check..."
+pnpm build
+
+echo "✅ Pre-commit checks passed!"

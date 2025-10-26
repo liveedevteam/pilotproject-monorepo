@@ -4,7 +4,9 @@ import { trpc } from "@/trpc/client";
 import { Button } from "@repo/ui";
 
 export default function Home() {
-  const { data: users, isLoading } = trpc.user.getAll.useQuery();
+  const { data: users, isLoading, error } = trpc.user.getAll.useQuery();
+
+  console.log("Query state:", { users, isLoading, error });
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
@@ -16,6 +18,8 @@ export default function Home() {
         <h2 className="text-2xl font-semibold mb-4">Users:</h2>
         {isLoading ? (
           <p>Loading...</p>
+        ) : error ? (
+          <p>Error: {error.message}</p>
         ) : (
           <pre>{JSON.stringify(users, null, 2)}</pre>
         )}

@@ -6,7 +6,6 @@ import { httpBatchLink, loggerLink } from "@trpc/client";
 import { useState } from "react";
 import { trpc } from "@/trpc/client";
 import superjson from "superjson";
-import { devtoolsLink } from "trpc-client-devtools-link";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -31,7 +30,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
                   process.env.NODE_ENV === "development" ||
                   (opts.direction === "down" && opts.result instanceof Error),
               }),
-              devtoolsLink(),
             ]
           : []),
         httpBatchLink({

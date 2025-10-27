@@ -91,10 +91,40 @@ pnpm type-check
 
 ### tRPC Full-Stack Setup
 
-- **API Layer**: `packages/api` exports `appRouter` with type-safe procedures
+- **API Layer**: `packages/api` exports `appRouter` with type-safe procedures using layered architecture
 - **Client Integration**: `apps/web` uses tRPC React Query integration
 - **Server-side**: Next.js app router with tRPC caller factory for server components
 - **Type Safety**: Shared `AppRouter` type provides end-to-end type safety
+
+### API Architecture (Service Layer Pattern)
+
+The API follows a layered architecture for scalability and maintainability:
+
+```
+┌─────────────────┐
+│   tRPC Router   │ ← API layer (validation, transformation)
+└─────────────────┘
+         │
+┌─────────────────┐
+│  Service Layer  │ ← Business logic, orchestration
+└─────────────────┘
+         │
+┌─────────────────┐
+│ Repository Layer│ ← Data access abstraction
+└─────────────────┘
+         │
+┌─────────────────┐
+│   Database      │ ← Drizzle ORM
+└─────────────────┘
+```
+
+**Layer Responsibilities:**
+
+- **Routers** (`src/routers/`): Input validation with Zod, tRPC procedure definitions
+- **Services** (`src/services/`): Business logic, validation, error handling, orchestration
+- **Repositories** (`src/repositories/`): Data access patterns, database operations
+- **Types** (`src/types/`): Shared interfaces and type definitions
+- **Errors** (`src/errors/`): Custom error classes with proper tRPC error codes
 
 ### Database Architecture
 
@@ -125,7 +155,18 @@ pnpm type-check
 
 ## Key Files and Locations
 
-- **API Router**: `packages/api/src/root.ts` - Main tRPC router definition
+### API Package Structure (`packages/api/src/`)
+
+- **API Router**: `root.ts` - Main tRPC router definition
+- **tRPC Setup**: `trpc.ts` - tRPC instance configuration and context
+- **Routers**: `routers/` - Individual tRPC route definitions
+- **Services**: `services/` - Business logic layer
+- **Repositories**: `repositories/` - Data access layer
+- **Types**: `types/` - Shared interfaces and type definitions
+- **Errors**: `errors/` - Custom error classes with tRPC error codes
+
+### Other Key Locations
+
 - **Database Schema**: `packages/database/src/schema.ts` - Drizzle schema definitions
 - **Database Client**: `packages/database/src/client.ts` - Drizzle database connection
 - **Web tRPC Setup**: `apps/web/src/trpc/` - Client and server tRPC configuration

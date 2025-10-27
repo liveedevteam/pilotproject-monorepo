@@ -5,9 +5,22 @@ import { UserService } from "../services/user-service";
 const userService = new UserService();
 
 export const userRouter = createTRPCRouter({
-  getAll: publicProcedure.query(async () => {
-    return await userService.getAllUsers();
-  }),
+  getAll: publicProcedure
+    .input(
+      z.object({
+        page: z.number().int().min(1).optional().default(1),
+        limit: z.number().int().min(1).max(100).optional().default(10),
+        search: z.string().optional(),
+        sortBy: z
+          .enum(["id", "name", "email", "createdAt"])
+          .optional()
+          .default("id"),
+        sortOrder: z.enum(["asc", "desc"]).optional().default("asc"),
+      })
+    )
+    .query(async ({ input }) => {
+      return await userService.getUsersPaginated(input);
+    }),
 
   getById: publicProcedure
     .input(z.object({ id: z.number().int().positive() }))

@@ -4,7 +4,8 @@ import {
   UserAlreadyExistsError,
   ValidationError,
 } from "../errors/api-errors";
-import type { CreateUserInput, User } from "../types/user";
+import type { CreateUserInput, User, GetUsersInput } from "../types/user";
+import type { PaginatedResult } from "../types/pagination";
 
 export class UserService {
   private userRepository: UserRepository;
@@ -13,8 +14,39 @@ export class UserService {
     this.userRepository = new UserRepository();
   }
 
-  async getAllUsers(): Promise<User[]> {
-    return await this.userRepository.findAll();
+  async getUsersPaginated(
+    input: GetUsersInput
+  ): Promise<PaginatedResult<User>> {
+    // Validate pagination parameters
+    const page = input.page || 1;
+    const limit = input.limit || 10;
+
+    if (page < 1) {
+      throw new ValidationError("Page must be greater than 0");
+    }
+
+    if (limit < 1 || limit > 100) {
+      throw new ValidationError("Limit must be between 1 and 100");
+    }
+
+    // Validate sort parameters
+    const validSortFields = ["id", "name", "email", "createdAt"];
+    if (input.sortBy && !validSortFields.includes(input.sortBy)) {
+      throw new ValidationError(
+        `Sort field must be one of: ${validSortFields.join(", ")}`
+      );
+    }
+
+    const validSortOrders = ["asc", "desc"];
+    if (input.sortOrder && !validSortOrders.includes(input.sortOrder)) {
+      throw new ValidationError("Sort order must be 'asc' or 'desc'");
+    }
+
+    return await this.userRepository.findPaginated({
+      ...input,
+      page,
+      limit,
+    });
   }
 
   async getUserById(id: number): Promise<User> {

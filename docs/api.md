@@ -90,6 +90,36 @@ export type AppRouter = typeof appRouter;
 const users = await trpc.user.getAll.useQuery();
 ```
 
+#### Get Users with Pagination
+
+```typescript
+// Endpoint: user.getPaginated
+// Method: query
+// Input: { page?, limit?, search?, sortBy?, sortOrder? }
+// Output: PaginatedResult<User>
+
+const paginatedUsers = await trpc.user.getPaginated.useQuery({
+  page: 1,
+  limit: 10,
+  search: "john",
+  sortBy: "createdAt",
+  sortOrder: "desc",
+});
+
+// Response structure:
+// {
+//   data: User[],
+//   pagination: {
+//     page: number,
+//     limit: number,
+//     total: number,
+//     totalPages: number,
+//     hasNext: boolean,
+//     hasPrevious: boolean
+//   }
+// }
+```
+
 #### Get User by ID
 
 ```typescript
@@ -834,9 +864,108 @@ describe("UserService", () => {
 
 - **Repository Caching**: Implement caching at repository level for frequently accessed data
 - **Query Optimization**: Use proper indexes and optimized queries
-- **Pagination**: Implement pagination for large datasets
+- **Pagination**: Always use pagination for large datasets
 - **React Query**: Leverage React Query features (caching, invalidation, prefetching)
 - **Monitoring**: Monitor query performance and optimize bottlenecks
+
+### Pagination Implementation
+
+#### Basic Pagination
+
+```typescript
+// Client-side usage
+const UsersList = () => {
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
+
+  const { data, isLoading, error } = trpc.user.getPaginated.useQuery({
+    page,
+    limit: 20,
+    search,
+    sortBy: "createdAt",
+    sortOrder: "desc"
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  return (
+    <div>
+      <input
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search users..."
+      />
+
+      <div>
+        {data?.data.map(user => (
+          <div key={user.id}>{user.name} - {user.email}</div>
+        ))}
+      </div>
+
+      <div>
+        <button
+          onClick={() => setPage(p => Math.max(1, p - 1))}
+          disabled={!data?.pagination.hasPrevious}
+        >
+          Previous
+        </button>
+
+        <span>
+          Page {data?.pagination.page} of {data?.pagination.totalPages}
+        </span>
+
+        <button
+          onClick={() => setPage(p => p + 1)}
+          disabled={!data?.pagination.hasNext}
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+};
+```
+
+#### Pagination Parameters
+
+- **page**: Page number (starts from 1, default: 1)
+- **limit**: Items per page (1-100, default: 10)
+- **search**: Search term for name/email (optional)
+- **sortBy**: Sort field - `id`, `name`, `email`, `createdAt` (default: `id`)
+- **sortOrder**: Sort direction - `asc`, `desc` (default: `asc`)
+
+#### Search Functionality
+
+The search parameter performs case-insensitive partial matching on:
+
+- User name
+- User email
+
+```typescript
+// Search for users with "john" in name or email
+const results = await trpc.user.getPaginated.useQuery({
+  search: "john",
+  page: 1,
+  limit: 10,
+});
+```
+
+#### Sorting Options
+
+```typescript
+// Sort by creation date, newest first
+const recent = await trpc.user.getPaginated.useQuery({
+  sortBy: "createdAt",
+  sortOrder: "desc",
+});
+
+// Sort by name alphabetically
+const alphabetical = await trpc.user.getPaginated.useQuery({
+  sortBy: "name",
+  sortOrder: "asc",
+});
+```
 
 ### Security Considerations
 

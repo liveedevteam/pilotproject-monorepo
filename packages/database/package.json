@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "drizzle-orm": "^0.33.0",
-    "postgres": "^3.4.4"
+    "postgres": "^3.4.4",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@repo/config": "workspace:*",

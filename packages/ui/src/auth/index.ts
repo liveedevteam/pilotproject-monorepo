@@ -8,6 +8,15 @@ export {
   useAuthStatus,
 } from "./hooks";
 export { AuthGuard, PermissionGuard, RoleGuard, AdminGuard } from "./guards";
+
+// Form components
+export { FormInput } from "./FormInput";
+export { PasswordInput } from "./PasswordInput";
+export { LoginForm } from "./LoginForm";
+export { RegisterForm } from "./RegisterForm";
+export { AuthLayout } from "./AuthLayout";
+
+// Types
 export type {
   UserProfile,
   Role,
@@ -19,3 +28,10 @@ export type {
   AuthContextType,
   AuthAction,
 } from "./types";
+
+// Form component prop types
+export type { FormInputProps } from "./FormInput";
+export type { PasswordInputProps } from "./PasswordInput";
+export type { LoginFormProps } from "./LoginForm";
+export type { RegisterFormProps } from "./RegisterForm";
+export type { AuthLayoutProps } from "./AuthLayout";

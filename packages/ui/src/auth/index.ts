@@ -1,13 +1,23 @@
 // Main exports for the auth module
-export { AuthProvider, useAuth } from "./AuthProvider";
+export { AuthProvider } from "./AuthProvider";
 export {
-  usePermission,
-  useRole,
-  useRoles,
-  useAdmin,
+  EnhancedAuthProvider,
+  useAuth,
+  useUser,
+  usePermissions,
   useAuthStatus,
-} from "./hooks";
+} from "./EnhancedAuthProvider";
+export { usePermission, useRole, useRoles, useAdmin } from "./hooks";
 export { AuthGuard, PermissionGuard, RoleGuard, AdminGuard } from "./guards";
+export {
+  EnhancedAuthGuard,
+  PermissionGuard as EnhancedPermissionGuard,
+  RoleGuard as EnhancedRoleGuard,
+  AdminGuard as EnhancedAdminGuard,
+  RouteGuard,
+  AuthLoading,
+  UnauthorizedFallback,
+} from "./EnhancedGuards";
 
 // Form components
 export { FormInput } from "./FormInput";

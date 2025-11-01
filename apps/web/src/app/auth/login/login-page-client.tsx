@@ -3,13 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import {
-  LoginForm,
-  AuthLayout,
-  EnhancedAuthGuard,
-  useAuth,
-} from "@repo/ui/auth";
-import { Alert, AlertDescription } from "@repo/ui/components/alert";
+import { LoginForm, AuthLayout, EnhancedAuthGuard, useAuth } from "@repo/ui";
+import { Alert, AlertDescription } from "@repo/ui";
 import { AlertCircle, CheckCircle } from "lucide-react";
 
 export function LoginPageClient() {
@@ -43,11 +38,7 @@ export function LoginPageClient() {
     }
   }, [isAuthenticated, router, redirectTo]);
 
-  const handleLogin = async (data: {
-    email: string;
-    password: string;
-    rememberMe?: boolean;
-  }) => {
+  const handleLogin = async () => {
     setIsLoading(true);
     setError(null);
 
@@ -112,7 +103,7 @@ export function LoginPageClient() {
           {/* Additional links */}
           <div className="text-center space-y-4">
             <div className="text-sm text-gray-600">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link
                 href={`/auth/register${redirectTo !== "/dashboard" ? `?redirect=${encodeURIComponent(redirectTo)}` : ""}`}
                 className="font-medium text-blue-600 hover:text-blue-500"

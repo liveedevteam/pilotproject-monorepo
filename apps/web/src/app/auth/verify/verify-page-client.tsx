@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { EmailVerification, AuthLayout } from "@repo/ui/auth";
+import { EmailVerification, AuthLayout } from "@repo/ui";
 
 export function EmailVerificationPageClient() {
   const router = useRouter();
@@ -16,7 +16,12 @@ export function EmailVerificationPageClient() {
     const emailParam = searchParams?.get("email");
     const storedEmail = localStorage.getItem("verification.email");
 
-    setEmail(emailParam || storedEmail || "");
+    // Use a timeout to avoid synchronous setState in effect
+    const timer = setTimeout(() => {
+      setEmail(emailParam || storedEmail || "");
+    }, 0);
+
+    return () => clearTimeout(timer);
   }, [searchParams]);
 
   const handleVerificationComplete = () => {

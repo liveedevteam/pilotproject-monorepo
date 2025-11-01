@@ -7,7 +7,7 @@ import React, {
   useReducer,
   useCallback,
 } from "react";
-import { createBrowserSupabaseClient } from "@repo/database";
+import { createBrowserSupabaseClient } from "@repo/database/browser";
 import type {
   AuthContextType,
   AuthState,

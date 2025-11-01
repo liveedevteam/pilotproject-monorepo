@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { httpBatchLink, loggerLink } from "@trpc/client";
 import { useState } from "react";
 import { trpc } from "@/trpc/client";
+import { EnhancedAuthProvider } from "@repo/ui";
 import superjson from "superjson";
 
 export function Providers({ children }: { children: React.ReactNode }) {
@@ -44,7 +45,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
-        {children}
+        <EnhancedAuthProvider>{children}</EnhancedAuthProvider>
         {process.env.NODE_ENV === "development" && (
           <ReactQueryDevtools initialIsOpen={false} />
         )}

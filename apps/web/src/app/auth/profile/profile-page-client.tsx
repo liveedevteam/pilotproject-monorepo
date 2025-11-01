@@ -4,23 +4,18 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { EnhancedAuthGuard, useAuth } from "@repo/ui/auth";
-import { FormInput, PasswordInput } from "@repo/ui/auth";
-import { Button } from "@repo/ui/components/button";
+import { EnhancedAuthGuard, useAuth } from "@repo/ui";
+import { FormInput, PasswordInput } from "@repo/ui";
+import { Button } from "@repo/ui";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@repo/ui/components/card";
-import { Alert, AlertDescription } from "@repo/ui/components/alert";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@repo/ui/components/tabs";
+} from "@repo/ui";
+import { Alert, AlertDescription } from "@repo/ui";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui";
 import {
   User,
   Lock,
@@ -101,7 +96,7 @@ export function ProfilePageClient() {
   };
 
   // Handle password change
-  const handlePasswordChange = async (data: PasswordFormData) => {
+  const handlePasswordChange = async () => {
     setPasswordError(null);
     setPasswordSuccess(null);
     setIsChangingPassword(true);

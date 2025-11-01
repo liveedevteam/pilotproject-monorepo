@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { createBrowserSupabaseClient } from "@repo/database";
+import { createBrowserSupabaseClient } from "@repo/database/browser";
 import { Button } from "../components/button";
 import {
   Card,

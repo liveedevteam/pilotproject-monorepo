@@ -2,11 +2,19 @@
 
 import React from "react";
 import Link from "next/link";
-import { PasswordResetRequest, AuthLayout } from "@repo/ui/auth";
+import { PasswordResetRequest, AuthLayout } from "@repo/ui";
 
 export function PasswordResetPageClient() {
   const handleBackToLogin = () => {
     // Navigation is handled by the PasswordResetRequest component
+  };
+
+  // Safe way to get the origin for SSR
+  const getResetConfirmUrl = () => {
+    if (typeof window !== "undefined") {
+      return `${window.location.origin}/auth/reset/confirm`;
+    }
+    return "/auth/reset/confirm"; // Fallback for SSR
   };
 
   return (
@@ -18,7 +26,7 @@ export function PasswordResetPageClient() {
       <div className="space-y-6">
         <PasswordResetRequest
           onBack={handleBackToLogin}
-          redirectTo={`${window.location.origin}/auth/reset/confirm`}
+          redirectTo={getResetConfirmUrl()}
         />
 
         {/* Additional help */}

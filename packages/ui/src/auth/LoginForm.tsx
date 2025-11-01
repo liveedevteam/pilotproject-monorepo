@@ -20,20 +20,29 @@ interface FormErrors {
 
 export interface LoginFormProps {
   className?: string;
+  onSubmit?: () => Promise<void>;
   onSuccess?: () => void;
   onError?: (error: string) => void;
   onForgotPassword?: () => void;
   onSignUp?: () => void;
+  isLoading?: boolean;
+  showRememberMe?: boolean;
+  showForgotPassword?: boolean;
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({
   className,
+  onSubmit,
   onSuccess,
   onError,
   onForgotPassword,
   onSignUp,
+  isLoading: externalIsLoading,
+  showRememberMe = true,
+  showForgotPassword = true,
 }) => {
-  const { signIn, isLoading } = useAuth();
+  const { signIn, isLoading: authLoading } = useAuth();
+  const isLoading = externalIsLoading || authLoading;
   const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
@@ -89,13 +98,18 @@ const LoginForm: React.FC<LoginFormProps> = ({
     setErrors({});
 
     try {
-      await signIn(formData.email, formData.password);
-
-      // Handle remember me functionality if needed
-      if (formData.rememberMe) {
-        localStorage.setItem("auth_remember_me", "true");
+      // If external onSubmit provided, use it instead of default auth flow
+      if (onSubmit) {
+        await onSubmit();
       } else {
-        localStorage.removeItem("auth_remember_me");
+        await signIn(formData.email, formData.password);
+
+        // Handle remember me functionality if needed
+        if (formData.rememberMe) {
+          localStorage.setItem("auth_remember_me", "true");
+        } else {
+          localStorage.removeItem("auth_remember_me");
+        }
       }
 
       onSuccess?.();

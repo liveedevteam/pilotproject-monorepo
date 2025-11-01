@@ -9,8 +9,8 @@ import {
   EnhancedAuthGuard,
   useAuth,
   EmailVerification,
-} from "@repo/ui/auth";
-import { Alert, AlertDescription } from "@repo/ui/components/alert";
+} from "@repo/ui";
+import { Alert, AlertDescription } from "@repo/ui";
 import { AlertCircle, CheckCircle } from "lucide-react";
 
 export function RegisterPageClient() {

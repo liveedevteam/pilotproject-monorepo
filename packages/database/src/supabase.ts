@@ -22,3 +22,14 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 export const createServerSupabaseClient = () => {
   return createClient(supabaseUrl, supabaseAnonKey);
 };
+
+// Browser client creation for client-side usage
+export const createBrowserSupabaseClient = () => {
+  return createClient(supabaseUrl, supabaseAnonKey, {
+    auth: {
+      autoRefreshToken: true,
+      persistSession: true,
+      detectSessionInUrl: true,
+    },
+  });
+};

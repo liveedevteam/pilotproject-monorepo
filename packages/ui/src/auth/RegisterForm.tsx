@@ -25,16 +25,33 @@ interface FormErrors {
 
 export interface RegisterFormProps {
   className?: string;
-  onSuccess?: () => void;
+  onSubmit?: (data: {
+    email: string;
+    password: string;
+    firstName?: string;
+    lastName?: string;
+    acceptTerms?: boolean;
+  }) => Promise<void>;
+  onSuccess?: (email: string) => void;
   onError?: (error: string) => void;
+  isLoading?: boolean;
+  showTermsAcceptance?: boolean;
+  termsUrl?: string;
+  privacyUrl?: string;
 }
 
 const RegisterForm: React.FC<RegisterFormProps> = ({
   className,
+  onSubmit,
   onSuccess,
   onError,
+  isLoading: externalIsLoading,
+  showTermsAcceptance = true,
+  termsUrl = "/terms",
+  privacyUrl = "/privacy",
 }) => {
-  const { signUp, isLoading } = useAuth();
+  const { signUp, isLoading: authLoading } = useAuth();
+  const isLoading = externalIsLoading || authLoading;
   const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
@@ -121,12 +138,23 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
     setErrors({});
 
     try {
-      await signUp(formData.email, formData.password, {
-        first_name: formData.firstName || null,
-        last_name: formData.lastName || null,
-      });
+      // If external onSubmit provided, use it instead of default auth flow
+      if (onSubmit) {
+        await onSubmit({
+          email: formData.email,
+          password: formData.password,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          acceptTerms: true, // Assuming form validation ensures this
+        });
+      } else {
+        await signUp(formData.email, formData.password, {
+          first_name: formData.firstName || null,
+          last_name: formData.lastName || null,
+        });
+      }
 
-      onSuccess?.();
+      onSuccess?.(formData.email);
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "Registration failed";

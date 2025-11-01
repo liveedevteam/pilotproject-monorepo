@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { createBrowserSupabaseClient } from "@repo/database";
+import { createBrowserSupabaseClient } from "@repo/database/browser";
 import type { User, Session } from "@supabase/supabase-js";
 
 export interface AuthUser {

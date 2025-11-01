@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { PasswordResetConfirm, AuthLayout } from "@repo/ui/auth";
+import { PasswordResetConfirm, AuthLayout } from "@repo/ui";
 
 export function PasswordResetConfirmPageClient() {
   const router = useRouter();
@@ -26,8 +26,13 @@ export function PasswordResetConfirmPageClient() {
       hashParams.get("refresh_token") || queryParams?.get("refresh_token");
 
     if (access_token && refresh_token) {
-      setAccessToken(access_token);
-      setRefreshToken(refresh_token);
+      // Use a timeout to avoid synchronous setState in effect
+      const timer = setTimeout(() => {
+        setAccessToken(access_token);
+        setRefreshToken(refresh_token);
+      }, 0);
+
+      return () => clearTimeout(timer);
     }
   }, [searchParams]);
 

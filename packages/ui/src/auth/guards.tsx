@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth } from "./AuthProvider";
+import { useAuth } from "./EnhancedAuthProvider";
 
 interface AuthGuardProps {
   children: React.ReactNode;
@@ -77,13 +77,7 @@ export function RoleGuard({
   requireAll = false,
   fallback = null,
 }: RoleGuardProps) {
-  const {
-    hasRole,
-    hasAnyRole,
-    isAuthenticated,
-    isLoading,
-    roles: userRoles,
-  } = useAuth();
+  const { hasRole, hasAnyRole, isAuthenticated, isLoading, user } = useAuth();
 
   if (isLoading) {
     return <div>Loading...</div>;

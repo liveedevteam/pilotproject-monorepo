@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { FormInput } from "./FormInput";
 import { PasswordInput } from "./PasswordInput";
-import { useAuth } from "./AuthProvider";
+import { useAuth } from "./EnhancedAuthProvider";
 import { cn } from "../lib/utils";
 
 interface FormData {
@@ -149,8 +149,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
         });
       } else {
         await signUp(formData.email, formData.password, {
-          first_name: formData.firstName || null,
-          last_name: formData.lastName || null,
+          firstName: formData.firstName || undefined,
+          lastName: formData.lastName || undefined,
         });
       }
 

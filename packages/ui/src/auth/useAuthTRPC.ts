@@ -129,7 +129,7 @@ export const useAuthTRPC = () => {
         error: error instanceof Error ? error.message : "Authentication failed",
       });
     }
-  }, [supabase, buildAuthUser]);
+  }, [supabase]);
 
   // Sign in with email and password
   const signIn = useCallback(
@@ -357,7 +357,7 @@ export const useAuthTRPC = () => {
     return () => {
       subscription.unsubscribe();
     };
-  }, [supabase, initializeAuth, buildAuthUser]);
+  }, []);
 
   // Auto-refresh token before expiry
   useEffect(() => {

@@ -17,6 +17,9 @@ export * from "./utils";
 export * from "./migrations/runners";
 export * from "./migrations/seed/runners";
 
+// Supabase client exports
+export * from "./supabase";
+
 // Legacy exports for backwards compatibility
 export { db as client } from "./core/client";
 export * from "./schemas/schema";

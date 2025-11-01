@@ -1,7 +1,9 @@
-import { appRouter, createCallerFactory } from "@repo/api";
+import { appRouter, createCallerFactory, createTRPCContext } from "@repo/api";
 
 const createCaller = createCallerFactory(appRouter);
 
-export const api = createCaller({
-  headers: new Headers(),
-});
+export const api = createCaller(() =>
+  createTRPCContext({
+    headers: new Headers(),
+  })
+);

@@ -16,6 +16,11 @@ export { LoginForm } from "./LoginForm";
 export { RegisterForm } from "./RegisterForm";
 export { AuthLayout } from "./AuthLayout";
 
+// Email verification and password reset components
+export { EmailVerification } from "./EmailVerification";
+export { PasswordResetRequest } from "./PasswordResetRequest";
+export { PasswordResetConfirm } from "./PasswordResetConfirm";
+
 // Types
 export type {
   UserProfile,

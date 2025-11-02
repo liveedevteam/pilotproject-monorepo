@@ -6,6 +6,7 @@ import React, {
   useEffect,
   useState,
   useCallback,
+  type ReactNode,
 } from "react";
 import { useAuthTRPC, type AuthUser, type AuthState } from "./useAuthTRPC";
 
@@ -43,7 +44,7 @@ const EnhancedAuthContext = createContext<EnhancedAuthContextType | undefined>(
 );
 
 interface EnhancedAuthProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
   // Optional custom tRPC client for server-side rendering
   trpcClient?: any;
 }

@@ -5,15 +5,16 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createBrowserSupabaseClient } from "@repo/database/browser";
-import { Button } from "../components/button";
 import {
+  Button,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../components/card";
-import { Alert, AlertDescription } from "../components/alert";
+  Alert,
+  AlertDescription,
+} from "../components";
 import { FormInput } from "./FormInput";
 import { Mail, ArrowLeft, CheckCircle, AlertCircle } from "lucide-react";
 

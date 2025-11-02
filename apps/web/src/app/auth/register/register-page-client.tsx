@@ -93,20 +93,24 @@ export function RegisterPageClient() {
         }
         showLogo={true}
       >
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {/* Success message */}
           {success && (
-            <Alert>
+            <Alert className="animate-fade-in">
               <CheckCircle className="h-4 w-4" />
-              <AlertDescription>{success}</AlertDescription>
+              <AlertDescription className="text-xs sm:text-sm">
+                {success}
+              </AlertDescription>
             </Alert>
           )}
 
           {/* Error message */}
           {error && (
-            <Alert variant="destructive">
+            <Alert variant="destructive" className="animate-fade-in">
               <AlertCircle className="h-4 w-4" />
-              <AlertDescription>{error}</AlertDescription>
+              <AlertDescription className="text-xs sm:text-sm">
+                {error}
+              </AlertDescription>
             </Alert>
           )}
 
@@ -128,51 +132,27 @@ export function RegisterPageClient() {
             />
           )}
 
-          {/* Additional links */}
-          {!showVerification && (
-            <div className="text-center space-y-4">
-              <div className="text-sm text-gray-600">
-                Already have an account?{" "}
-                <Link
-                  href={`/auth/login${redirectTo !== "/dashboard" ? `?redirect=${encodeURIComponent(redirectTo)}` : ""}`}
-                  className="font-medium text-blue-600 hover:text-blue-500"
-                >
-                  Sign in
-                </Link>
-              </div>
-
-              <div className="pt-4 border-t border-gray-200">
-                <Link
-                  href="/"
-                  className="text-sm text-gray-600 hover:text-gray-500"
-                >
-                  ← Back to home
-                </Link>
-              </div>
-            </div>
-          )}
-
           {/* Links for verification screen */}
           {showVerification && (
-            <div className="text-center space-y-4">
-              <div className="text-sm">
+            <div className="text-center space-y-3 sm:space-y-4">
+              <div className="text-xs sm:text-sm">
                 <button
                   onClick={() => {
                     setShowVerification(false);
                     setRegisteredEmail("");
                     setSuccess(null);
                   }}
-                  className="text-blue-600 hover:text-blue-500"
+                  className="text-blue-600 hover:text-blue-500 min-h-11 inline-flex items-center touch-manipulation transition-colors"
                 >
                   ← Back to registration
                 </button>
               </div>
 
-              <div className="text-sm text-gray-600">
+              <div className="text-xs sm:text-sm text-gray-600">
                 Already verified?{" "}
                 <Link
                   href={`/auth/login?redirect=${encodeURIComponent(redirectTo)}`}
-                  className="font-medium text-blue-600 hover:text-blue-500"
+                  className="font-medium text-blue-600 hover:text-blue-500 min-h-11 inline-flex items-center touch-manipulation transition-colors"
                 >
                   Sign in
                 </Link>

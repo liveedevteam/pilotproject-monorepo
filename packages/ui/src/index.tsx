@@ -1,4 +1,3 @@
-export { Button } from "./button";
 export { cn } from "./lib/utils";
 
 // Export all auth components and types

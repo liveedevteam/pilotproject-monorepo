@@ -2,15 +2,16 @@
 
 import React, { useState, useEffect } from "react";
 import { createBrowserSupabaseClient } from "@repo/database/browser";
-import { Button } from "../components/button";
 import {
+  Button,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../components/card";
-import { Alert, AlertDescription } from "../components/alert";
+  Alert,
+  AlertDescription,
+} from "../components";
 import { CheckCircle, Mail, RefreshCw, AlertCircle } from "lucide-react";
 
 interface EmailVerificationProps {

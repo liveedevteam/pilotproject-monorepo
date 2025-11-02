@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
@@ -18,7 +18,6 @@ export function RegisterPageClient() {
   const searchParams = useSearchParams();
   const { isAuthenticated } = useAuth();
 
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [showVerification, setShowVerification] = useState(false);
@@ -33,34 +32,6 @@ export function RegisterPageClient() {
       router.push(redirectTo);
     }
   }, [isAuthenticated, router, redirectTo]);
-
-  const handleRegister = async (data: {
-    email: string;
-    password: string;
-    firstName?: string;
-    lastName?: string;
-    acceptTerms?: boolean;
-  }) => {
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      // The RegisterForm handles the actual registration through the auth context
-      setRegisteredEmail(data.email);
-      setShowVerification(true);
-      setSuccess(
-        "Account created successfully! Please check your email to verify your account."
-      );
-    } catch (error) {
-      setError(
-        error instanceof Error
-          ? error.message
-          : "Registration failed. Please try again."
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const handleRegisterSuccess = (email: string) => {
     setRegisteredEmail(email);
@@ -122,10 +93,8 @@ export function RegisterPageClient() {
             />
           ) : (
             <RegisterForm
-              onSubmit={handleRegister}
               onSuccess={handleRegisterSuccess}
               onError={handleRegisterError}
-              isLoading={isLoading}
               showTermsAcceptance={true}
               termsUrl="/terms"
               privacyUrl="/privacy"

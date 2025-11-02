@@ -97,7 +97,15 @@ export const useAuthTRPC = () => {
         error,
       } = await supabase.auth.getSession();
 
+      console.log("📋 Session data:", {
+        session: session
+          ? { user: session.user?.email, expires_at: session.expires_at }
+          : null,
+        error,
+      });
+
       if (error) {
+        console.error("❌ Session error:", error);
         throw error;
       }
 
@@ -118,9 +126,10 @@ export const useAuthTRPC = () => {
           isAuthenticated: false,
           error: null,
         });
+        console.log("✅ Auth state updated: authenticated=false");
       }
     } catch (error) {
-      console.error("Auth initialization error:", error);
+      console.error("❌ Auth initialization error:", error);
       setState({
         user: null,
         session: null,
@@ -129,7 +138,7 @@ export const useAuthTRPC = () => {
         error: error instanceof Error ? error.message : "Authentication failed",
       });
     }
-  }, [supabase]);
+  }, [supabase, buildAuthUser]);
 
   // Sign in with email and password
   const signIn = useCallback(
@@ -357,7 +366,7 @@ export const useAuthTRPC = () => {
     return () => {
       subscription.unsubscribe();
     };
-  }, []);
+  }, [initializeAuth, supabase, buildAuthUser]);
 
   // Auto-refresh token before expiry
   useEffect(() => {
